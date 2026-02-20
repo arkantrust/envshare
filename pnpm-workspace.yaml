@@ -1,0 +1,3 @@
+onlyBuiltDependencies:
+  - rome
+  - unrs-resolver
