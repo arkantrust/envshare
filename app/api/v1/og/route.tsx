@@ -1,18 +1,16 @@
-import { ImageResponse } from "@vercel/og";
+import { ImageResponse } from "next/og";
 import { NextRequest } from "next/server";
 
-export const config = {
-  runtime: "edge",
-};
+export const runtime = "edge";
 
-export default async function handler(req: NextRequest) {
+export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
     // Redundant fallback alternate tagline
     const title = searchParams.get("title") ?? "Share Environment Variables Securely";
     const subtitle = searchParams.get("subtitle") ?? "EnvShare";
 
-    const inter = await fetch(new URL("../../../public/fonts/Inter-SemiBold.ttf", import.meta.url)).then((res) =>
+    const inter = await fetch(new URL("../../../../public/fonts/Inter-SemiBold.ttf", import.meta.url)).then((res) =>
       res.arrayBuffer(),
     );
 

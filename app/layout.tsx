@@ -1,10 +1,35 @@
 import "./globals.css";
-import { Inter } from "@next/font/google";
+import localFont from "next/font/local";
 import Link from "next/link";
 import { Header } from "./header";
-
 import { Analytics } from "@components/analytics";
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+import type { Metadata } from "next";
+
+const inter = localFont({
+  src: "../public/fonts/Inter-SemiBold.ttf",
+  variable: "--font-inter",
+});
+
+const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
+
+export const metadata: Metadata = {
+  title: "EnvShare",
+  description: "Share Environment Variables Securely",
+  keywords: ["envshare", "secure", "secrets", "share", "environment", "variables"],
+  openGraph: {
+    type: "website",
+    url: baseUrl,
+    title: "Share Environment Variables Securely",
+    description: "EnvShare",
+    images: [{ url: `${baseUrl}/api/v1/og?title=Share+Environment+Variables+Securely&subtitle=EnvShare`, width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Share Environment Variables Securely",
+    description: "EnvShare",
+    images: [`${baseUrl}/api/v1/og?title=Share+Environment+Variables+Securely&subtitle=EnvShare`],
+  },
+};
 
 export default function RootLayout({
   children,
@@ -13,7 +38,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <head />
       <body className="relative min-h-screen bg-black bg-gradient-to-tr from-zinc-900/50 to-zinc-700/30">
         {
           // Not everyone will want to host envshare on Vercel, so it makes sense to make this opt-in.

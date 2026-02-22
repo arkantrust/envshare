@@ -3,7 +3,7 @@ import { Redis } from "@upstash/redis";
 const redis = Redis.fromEnv();
 export const revalidate = 60;
 
-export const Stats = asyncComponent(async () => {
+export async function Stats() {
   const [reads, writes] = await redis
     .pipeline()
     .get("envshare:metrics:reads")
@@ -48,10 +48,4 @@ export const Stats = asyncComponent(async () => {
       </ul>
     </section>
   );
-});
-
-// stupid hack to make "server components" actually work with components
-// https://www.youtube.com/watch?v=h_9Vx6kio2s
-function asyncComponent<T, R>(fn: (arg: T) => Promise<R>): (arg: T) => R {
-  return fn as (arg: T) => R;
 }

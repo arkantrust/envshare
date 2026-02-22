@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Props } from "next/script";
 import React, { PropsWithChildren } from "react";
 
 const TwitterHandle: React.FC<PropsWithChildren> = ({ children }) => {
