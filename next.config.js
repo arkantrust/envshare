@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
   images: {
-    domains: ["twitter.com", "pbs.twimg.com"],
+    remotePatterns: [
+      { protocol: "https", hostname: "twitter.com" },
+      { protocol: "https", hostname: "pbs.twimg.com" },
+    ],
   },
 };
 

@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 
+export const runtime = "edge";
+
 const redis = Redis.fromEnv();
-export default async function handler(req: NextRequest) {
+
+export async function GET(req: NextRequest) {
   const url = new URL(req.url);
   const id = url.searchParams.get("id");
   if (!id) {
@@ -30,7 +33,3 @@ export default async function handler(req: NextRequest) {
 
   return NextResponse.json({ iv: data.iv, encrypted: data.encrypted, remainingReads });
 }
-
-export const config = {
-  runtime: "edge",
-};

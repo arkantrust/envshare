@@ -2,7 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 import { generateId } from "pkg/id";
 
-type Request = {
+export const runtime = "edge";
+
+type StoreRequest = {
   encrypted: string;
   ttl?: number;
   reads: number;
@@ -10,8 +12,9 @@ type Request = {
 };
 
 const redis = Redis.fromEnv();
-export default async function handler(req: NextRequest) {
-  const { encrypted, ttl, reads, iv } = (await req.json()) as Request;
+
+export async function POST(req: NextRequest) {
+  const { encrypted, ttl, reads, iv } = (await req.json()) as StoreRequest;
 
   const id = generateId();
   const key = ["envshare", id].join(":");
@@ -32,7 +35,3 @@ export default async function handler(req: NextRequest) {
 
   return NextResponse.json({ id });
 }
-
-export const config = {
-  runtime: "edge",
-};

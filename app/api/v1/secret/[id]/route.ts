@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 import { z } from "zod";
 
+export const runtime = "edge";
+
 const responseValidation = z.union([
   z.object({
     data: z.object({
@@ -15,12 +17,13 @@ const responseValidation = z.union([
 ]);
 
 const redis = Redis.fromEnv();
-export default async function handler(req: NextRequest): Promise<NextResponse> {
+
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+): Promise<NextResponse> {
   try {
-    if (req.method !== "GET") {
-      return NextResponse.json({ error: "Method Not Allowed" }, { status: 405 });
-    }
-    const id = new URL(req.url).searchParams.get("id");
+    const { id } = await params;
     if (!id) {
       return NextResponse.json({ error: "Missing `id` parameter" }, { status: 400 });
     }
@@ -52,7 +55,3 @@ export default async function handler(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
-
-export const config = {
-  runtime: "edge",
-};

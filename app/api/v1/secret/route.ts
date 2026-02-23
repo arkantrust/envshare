@@ -3,6 +3,8 @@ import { Redis } from "@upstash/redis";
 import { generateId } from "pkg/id";
 import { z } from "zod";
 
+export const runtime = "edge";
+
 export const requestValidation = z.object({
   // ttl in seconds
   // defaults to 30 days
@@ -40,12 +42,8 @@ export const responseValidation = z.union([
 
 const redis = Redis.fromEnv();
 
-export default async function handler(req: NextRequest): Promise<NextResponse> {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
-    if (req.method !== "POST") {
-      return NextResponse.json({ error: "Method Not Allowed" }, { status: 405 });
-    }
-
     const parsed = requestValidation.safeParse({
       ttl: req.headers.get("envshare-ttl"),
       reads: req.headers.get("envshare-reads"),
@@ -90,7 +88,3 @@ export default async function handler(req: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
-
-export const config = {
-  runtime: "edge",
-};
