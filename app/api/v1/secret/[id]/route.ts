@@ -18,10 +18,7 @@ const responseValidation = z.union([
 
 const redis = Redis.fromEnv();
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-): Promise<NextResponse> {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse> {
   try {
     const { id } = await params;
     if (!id) {

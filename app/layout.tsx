@@ -21,7 +21,13 @@ export const metadata: Metadata = {
     url: baseUrl,
     title: "Share Environment Variables Securely",
     description: "EnvShare",
-    images: [{ url: `${baseUrl}/api/v1/og?title=Share+Environment+Variables+Securely&subtitle=EnvShare`, width: 1200, height: 630 }],
+    images: [
+      {
+        url: `${baseUrl}/api/v1/og?title=Share+Environment+Variables+Securely&subtitle=EnvShare`,
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
