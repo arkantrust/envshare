@@ -1,7 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
-import { generateId } from "@/pkg/id";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+
+import { generateId } from "@/pkg/id";
 
 export const runtime = "edge";
 

@@ -1,12 +1,17 @@
 "use client";
-import { toBase58 } from "@/util/base58";
+import {
+  Cog6ToothIcon,
+  ClipboardDocumentIcon,
+  ClipboardDocumentCheckIcon,
+} from "@heroicons/react/24/outline";
 import { useState, Fragment } from "react";
-import { Cog6ToothIcon, ClipboardDocumentIcon, ClipboardDocumentCheckIcon } from "@heroicons/react/24/outline";
-import { Title } from "@/components/title";
-import { encrypt } from "@/pkg/encryption";
+
 import { ErrorMessage } from "@/components/error";
-import { encodeCompositeKey } from "@/pkg/encoding";
+import { Title } from "@/components/title";
 import { LATEST_KEY_VERSION } from "@/pkg/constants";
+import { encodeCompositeKey } from "@/pkg/encoding";
+import { encrypt } from "@/pkg/encryption";
+import { toBase58 } from "@/util/base58";
 
 export default function Home() {
   const [text, setText] = useState("");
@@ -54,28 +59,28 @@ export default function Home() {
   };
 
   return (
-    <div className="container px-8 mx-auto mt-16 lg:mt-32 ">
+    <div className="container mx-auto mt-16 px-8 lg:mt-32 ">
       {error ? <ErrorMessage message={error} /> : null}
 
       {link ? (
-        <div className="flex flex-col items-center justify-center w-full h-full mt-8 md:mt-16 xl:mt-32">
+        <div className="mt-8 flex h-full w-full flex-col items-center justify-center md:mt-16 xl:mt-32">
           <Title>Share this link with others</Title>
-          <div className="relative flex items-stretch grow mt-16 focus-within:z-10">
-            <pre className="px-4 py-3 font-mono text-center bg-transparent border rounded-sm border-zinc-600 focus:border-zinc-100/80 focus:ring-0 sm:text-sm text-zinc-100">
+          <div className="relative mt-16 flex grow items-stretch focus-within:z-10">
+            <pre className="font-mono rounded-sm border border-zinc-600 bg-transparent px-4 py-3 text-center text-zinc-100 focus:border-zinc-100/80 focus:ring-0 sm:text-sm">
               {link}
             </pre>
             <button
               type="button"
-              className="relative inline-flex items-center px-4 py-2 -ml-px space-x-2 text-sm font-medium duration-150 border text-zinc-700 border-zinc-300 rounded-r-md bg-zinc-50 hover focus:border-zinc-500 focus:outline-hidden focus:ring-1 focus:ring-zinc-500 hover:text-zinc-900 hover:bg-white"
+              className="hover relative -ml-px inline-flex items-center space-x-2 rounded-r-md border border-zinc-300 bg-zinc-50 px-4 py-2 text-sm font-medium text-zinc-700 duration-150 hover:bg-white hover:text-zinc-900 focus:border-zinc-500 focus:ring-1 focus:ring-zinc-500 focus:outline-hidden"
               onClick={() => {
                 navigator.clipboard.writeText(link);
                 setCopied(true);
               }}
             >
               {copied ? (
-                <ClipboardDocumentCheckIcon className="w-5 h-5" aria-hidden="true" />
+                <ClipboardDocumentCheckIcon className="h-5 w-5" aria-hidden="true" />
               ) : (
-                <ClipboardDocumentIcon className="w-5 h-5" aria-hidden="true" />
+                <ClipboardDocumentIcon className="h-5 w-5" aria-hidden="true" />
               )}{" "}
               <span>{copied ? "Copied" : "Copy"}</span>
             </button>
@@ -83,7 +88,7 @@ export default function Home() {
         </div>
       ) : (
         <form
-          className="max-w-3xl mx-auto"
+          className="mx-auto max-w-3xl"
           onSubmit={(e) => {
             e.preventDefault();
             if (text.length <= 0) return;
@@ -92,9 +97,12 @@ export default function Home() {
         >
           <Title>Encrypt and Share</Title>
 
-          <pre className="px-4 py-3 mt-8 font-mono text-left bg-transparent border rounded-sm border-zinc-600 focus:border-zinc-100/80 focus:ring-0 sm:text-sm text-zinc-100">
+          <pre className="font-mono mt-8 rounded-sm border border-zinc-600 bg-transparent px-4 py-3 text-left text-zinc-100 focus:border-zinc-100/80 focus:ring-0 sm:text-sm">
             <div className="flex items-start px-1 text-sm">
-              <div aria-hidden="true" className="pr-4 font-mono border-r select-none border-zinc-300/5 text-zinc-700">
+              <div
+                aria-hidden="true"
+                className="font-mono border-r border-zinc-300/5 pr-4 text-zinc-700 select-none"
+              >
                 {Array.from({
                   length: text.split("\n").length,
                 }).map((_, index) => (
@@ -113,15 +121,15 @@ export default function Home() {
                 onChange={(e) => setText(e.target.value)}
                 rows={Math.max(5, text.split("\n").length)}
                 placeholder="DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres"
-                className="w-full p-0 text-base bg-transparent border-0 appearance-none resize-none hover:resize text-zinc-100 placeholder-zinc-500 focus:ring-0 sm:text-sm"
+                className="w-full resize-none appearance-none border-0 bg-transparent p-0 text-base text-zinc-100 placeholder-zinc-500 hover:resize focus:ring-0 sm:text-sm"
               />
             </div>
           </pre>
 
-          <div className="flex flex-col items-center justify-center w-full gap-4 mt-4 sm:flex-row">
+          <div className="mt-4 flex w-full flex-col items-center justify-center gap-4 sm:flex-row">
             <div className="w-full sm:w-1/5">
               <label
-                className="flex items-center justify-center h-16 px-3 py-2 text-sm whitespace-no-wrap duration-150 border rounded-sm hover:border-zinc-100/80 border-zinc-600 focus:border-zinc-100/80 focus:ring-0 text-zinc-100 hover:text-white hover:cursor-pointer "
+                className="whitespace-no-wrap flex h-16 items-center justify-center rounded-sm border border-zinc-600 px-3 py-2 text-sm text-zinc-100 duration-150 hover:cursor-pointer hover:border-zinc-100/80 hover:text-white focus:border-zinc-100/80 focus:ring-0 "
                 htmlFor="file_input"
               >
                 Upload a file
@@ -147,7 +155,7 @@ export default function Home() {
               />
             </div>
 
-            <div className="w-full h-16 px-3 py-2 duration-150 border rounded-sm sm:w-2/5 hover:border-zinc-100/80 border-zinc-600 focus-within:border-zinc-100/80 focus-within:ring-0 ">
+            <div className="h-16 w-full rounded-sm border border-zinc-600 px-3 py-2 duration-150 focus-within:border-zinc-100/80 focus-within:ring-0 hover:border-zinc-100/80 sm:w-2/5 ">
               <label htmlFor="reads" className="block text-xs font-medium text-zinc-100">
                 READS
               </label>
@@ -155,12 +163,12 @@ export default function Home() {
                 type="number"
                 name="reads"
                 id="reads"
-                className="w-full p-0 text-base bg-transparent border-0 appearance-none text-zinc-100 placeholder-zinc-500 focus:ring-0 sm:text-sm"
+                className="w-full appearance-none border-0 bg-transparent p-0 text-base text-zinc-100 placeholder-zinc-500 focus:ring-0 sm:text-sm"
                 value={reads}
                 onChange={(e) => setReads(e.target.valueAsNumber)}
               />
             </div>
-            <div className="relative w-full h-16 px-3 py-2 duration-150 border rounded-sm sm:w-2/5 hover:border-zinc-100/80 border-zinc-600 focus-within:border-zinc-100/80 focus-within:ring-0 ">
+            <div className="relative h-16 w-full rounded-sm border border-zinc-600 px-3 py-2 duration-150 focus-within:border-zinc-100/80 focus-within:ring-0 hover:border-zinc-100/80 sm:w-2/5 ">
               <label htmlFor="reads" className="block text-xs font-medium text-zinc-100">
                 TTL
               </label>
@@ -168,16 +176,17 @@ export default function Home() {
                 type="number"
                 name="reads"
                 id="reads"
-                className="w-full p-0 text-base bg-transparent border-0 appearance-none text-zinc-100 placeholder-zinc-500 focus:ring-0 sm:text-sm"
+                className="w-full appearance-none border-0 bg-transparent p-0 text-base text-zinc-100 placeholder-zinc-500 focus:ring-0 sm:text-sm"
                 value={ttl}
                 onChange={(e) => setTtl(e.target.valueAsNumber)}
               />
               <div className="absolute inset-y-0 right-0 flex items-center">
+                {/* oxlint-disable-next-line jsx_a11y/label-has-associated-control */}
                 <label htmlFor="ttlMultiplier" className="sr-only" />
                 <select
                   id="ttlMultiplier"
                   name="ttlMultiplier"
-                  className="h-full py-0 pl-2 bg-transparent border-0 border-transparent rounded-sm pr-7 text-zinc-500 focus:ring-0 sm:text-sm"
+                  className="h-full rounded-sm border-0 border-transparent bg-transparent py-0 pr-7 pl-2 text-zinc-500 focus:ring-0 sm:text-sm"
                   onChange={(e) => setTtlMultiplier(parseInt(e.target.value))}
                   defaultValue={60 * 60 * 24}
                 >
@@ -191,31 +200,34 @@ export default function Home() {
           <button
             type="submit"
             disabled={loading || text.length <= 0}
-            className={`mt-6 w-full h-12 inline-flex justify-center items-center  transition-all  rounded px-4 py-1.5 md:py-2 text-base font-semibold leading-7    bg-zinc-200 ring-1 ring-transparent duration-150   ${text.length <= 0
-              ? "text-zinc-400 cursor-not-allowed"
-              : "text-zinc-900 hover:text-zinc-100 hover:ring-zinc-600/80  hover:bg-zinc-900/20"
-              } ${loading ? "animate-pulse" : ""}`}
+            className={`mt-6 inline-flex h-12 w-full items-center justify-center  rounded  bg-zinc-200 px-4 py-1.5 text-base leading-7 font-semibold ring-1    ring-transparent transition-all duration-150 md:py-2   ${
+              text.length <= 0
+                ? "cursor-not-allowed text-zinc-400"
+                : "text-zinc-900 hover:bg-zinc-900/20 hover:text-zinc-100  hover:ring-zinc-600/80"
+            } ${loading ? "animate-pulse" : ""}`}
           >
-            <span>{loading ? <Cog6ToothIcon className="w-5 h-5 animate-spin" /> : "Share"}</span>
+            <span>{loading ? <Cog6ToothIcon className="h-5 w-5 animate-spin" /> : "Share"}</span>
           </button>
 
           <div className="mt-8">
             <ul className="space-y-2 text-xs text-zinc-500">
               <li>
                 <p>
-                  <span className="font-semibold text-zinc-400">Reads:</span> The number of reads determines how often
-                  the data can be shared, before it deletes itself. 0 means unlimited.
+                  <span className="font-semibold text-zinc-400">Reads:</span> The number of reads
+                  determines how often the data can be shared, before it deletes itself. 0 means
+                  unlimited.
                 </p>
               </li>
               <li>
                 <p>
-                  <span className="font-semibold text-zinc-400">TTL:</span> You can add a TTL (time to live) to the
-                  data, to automatically delete it after a certain amount of time. 0 means no TTL.
+                  <span className="font-semibold text-zinc-400">TTL:</span> You can add a TTL (time
+                  to live) to the data, to automatically delete it after a certain amount of time. 0
+                  means no TTL.
                 </p>
               </li>
               <p>
-                Clicking Share will generate a new symmetrical key and encrypt your data before sending only the
-                encrypted data to the server.
+                Clicking Share will generate a new symmetrical key and encrypt your data before
+                sending only the encrypted data to the server.
               </p>
             </ul>
           </div>

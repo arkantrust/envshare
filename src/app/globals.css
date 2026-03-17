@@ -1,12 +1,12 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
-@plugin '@tailwindcss/forms';
+@plugin "@tailwindcss/forms";
 
 @theme {
   --font-*: initial;
   --font-sans:
-    var(--font-montserrat), ui-sans-serif, system-ui, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    var(--font-montserrat), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
   --drop-shadow-cta: 0 10px 15px rgba(219, 227, 248, 0.2);
   --drop-shadow-blue: 0 10px 15px rgba(59, 130, 246, 0.2);
@@ -36,7 +36,6 @@
     @apply appearance-none;
   }
 
-  
   input[type="file"] {
     @apply appearance-none;
   }

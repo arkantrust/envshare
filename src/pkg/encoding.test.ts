@@ -1,8 +1,9 @@
 import { describe, it, expect } from "@jest/globals";
+import crypto from "node:crypto";
+
 import { decodeCompositeKey, encodeCompositeKey } from "./encoding";
 import { generateKey } from "./encryption";
 import { generateId } from "./id";
-import crypto from "node:crypto";
 
 describe("composite key encoding", () => {
   it("encodes and decodes composite keys", async () => {

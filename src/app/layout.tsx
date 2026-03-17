@@ -1,16 +1,21 @@
 import "./globals.css";
-import { Montserrat } from 'next/font/google'
-import Link from "next/link";
-import { Header } from "./header";
-import { Analytics } from "@/components/analytics";
 import type { Metadata } from "next";
 
-const montserrat = Montserrat({
-  subsets: ['latin'],
-  fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],
-})
+import { Montserrat } from "next/font/google";
+import Link from "next/link";
 
-const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
+import { Analytics } from "@/components/analytics";
+
+import { Header } from "./header";
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
+});
+
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : "http://localhost:3000";
 
 export const metadata: Metadata = {
   title: "EnvShare",
@@ -37,11 +42,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={montserrat.className}>
       <body className="relative min-h-screen bg-black bg-linear-to-tr from-zinc-900/50 to-zinc-700/30">
@@ -54,11 +55,14 @@ export default function RootLayout({
 
         <main className=" min-h-[80vh] ">{children}</main>
 
-        <footer className="bottom-0 border-t inset-2x-0 border-zinc-500/10">
-          <div className="flex flex-col gap-1 px-6 py-12 mx-auto text-xs text-center text-zinc-700 max-w-7xl lg:px-8">
+        <footer className="inset-2x-0 bottom-0 border-t border-zinc-500/10">
+          <div className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-12 text-center text-xs text-zinc-700 lg:px-8">
             <p>
               Built by{" "}
-              <Link href="https://twitter.com/chronark_" className="font-semibold duration-150 hover:text-zinc-200">
+              <Link
+                href="https://twitter.com/chronark_"
+                className="font-semibold duration-150 hover:text-zinc-200"
+              >
                 @chronark_
               </Link>
               and{" "}
@@ -71,11 +75,19 @@ export default function RootLayout({
             </p>
             <p>
               EnvShare is deployed on{" "}
-              <Link target="_blank" href="https://vercel.com" className="underline duration-150 hover:text-zinc-200">
+              <Link
+                target="_blank"
+                href="https://vercel.com"
+                className="underline duration-150 hover:text-zinc-200"
+              >
                 Vercel
               </Link>{" "}
               and uses{" "}
-              <Link target="_blank" href="https://upstash.com" className="underline duration-150 hover:text-zinc-200">
+              <Link
+                target="_blank"
+                href="https://upstash.com"
+                className="underline duration-150 hover:text-zinc-200"
+              >
                 Upstash
               </Link>{" "}
               for storing encrypted data.

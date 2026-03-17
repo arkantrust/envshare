@@ -1,7 +1,7 @@
 "use client";
-import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import React from "react";
 
 const navigation = [
   {
@@ -27,19 +27,22 @@ const navigation = [
 export const Header: React.FC = () => {
   const pathname = usePathname();
   return (
-    <header className="top-0 z-30 w-full px-4 sm:fixed backdrop-blur-sm bh-zinc-900/50">
+    <header className="bh-zinc-900/50 top-0 z-30 w-full px-4 backdrop-blur-sm sm:fixed">
       <div className="container mx-auto">
         <div className="flex flex-col items-center justify-between gap-2 pt-6 sm:h-20 sm:flex-row sm:pt-0">
-          <Link href="/" className="text-2xl font-semibold duration-150 text-zinc-100 hover:text-white">
+          <Link
+            href="/"
+            className="text-2xl font-semibold text-zinc-100 duration-150 hover:text-white"
+          >
             EnvShare
           </Link>
           {/* Desktop navigation */}
-          <nav className="flex items-center grow">
-            <ul className="flex flex-wrap items-center justify-end gap-4 grow">
+          <nav className="flex grow items-center">
+            <ul className="flex grow flex-wrap items-center justify-end gap-4">
               {navigation.map((item) => (
                 <li className="" key={item.href}>
                   <Link
-                    className={`flex items-center px-3 py-2 duration-150 text-sm sm:text-base  hover:text-zinc-50
+                    className={`flex items-center px-3 py-2 text-sm duration-150 hover:text-zinc-50  sm:text-base
                     ${pathname === item.href ? "text-zinc-200" : "text-zinc-400"}`}
                     href={item.href}
                     target={item.external ? "_blank" : undefined}

@@ -11,7 +11,9 @@ export async function generateKey() {
   );
 }
 
-export async function encrypt(text: string): Promise<{ encrypted: Uint8Array; iv: Uint8Array; key: Uint8Array }> {
+export async function encrypt(
+  text: string,
+): Promise<{ encrypted: Uint8Array; iv: Uint8Array; key: Uint8Array }> {
   const key = await generateKey();
 
   const iv = crypto.getRandomValues(new Uint8Array(16));
@@ -33,14 +35,25 @@ export async function encrypt(text: string): Promise<{ encrypted: Uint8Array; iv
   };
 }
 
-export async function decrypt(encrypted: string, keyData: Uint8Array, iv: string, keyVersion: number): Promise<string> {
+export async function decrypt(
+  encrypted: string,
+  keyData: Uint8Array,
+  iv: string,
+  keyVersion: number,
+): Promise<string> {
   const algorithm = keyVersion === 1 ? "AES-CBC" : "AES-GCM";
 
   const keyBytes = new Uint8Array(keyData);
   const ivBytes = new Uint8Array(fromBase58(iv));
   const encryptedBytes = new Uint8Array(fromBase58(encrypted));
 
-  const key = await crypto.subtle.importKey("raw", keyBytes, { name: algorithm, length: 128 }, false, ["decrypt"]);
+  const key = await crypto.subtle.importKey(
+    "raw",
+    keyBytes,
+    { name: algorithm, length: 128 },
+    false,
+    ["decrypt"],
+  );
 
   const decrypted = await crypto.subtle.decrypt(
     {

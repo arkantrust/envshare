@@ -37,12 +37,12 @@ export async function Stats() {
         {stats.map(({ label, value }) => (
           <li
             key={label}
-            className="flex items-center justify-between gap-2 px-4 py-3 overflow-hidden rounded-sm m sm:flex-col"
+            className="m flex items-center justify-between gap-2 overflow-hidden rounded-sm px-4 py-3 sm:flex-col"
           >
-            <dd className="text-2xl font-bold tracking-tight text-center sm:text-5xl text-zinc-200">
+            <dd className="text-center text-2xl font-bold tracking-tight text-zinc-200 sm:text-5xl">
               {Intl.NumberFormat("en-US", { notation: "compact" }).format(value)}
             </dd>
-            <dt className="leading-6 text-center text-zinc-500">{label}</dt>
+            <dt className="text-center leading-6 text-zinc-500">{label}</dt>
           </li>
         ))}
       </ul>

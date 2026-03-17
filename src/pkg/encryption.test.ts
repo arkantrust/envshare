@@ -1,7 +1,9 @@
 import { describe, it, expect } from "@jest/globals";
-import { decrypt, encrypt } from "./encryption";
 import crypto from "node:crypto";
+
 import { toBase58 } from "@/util/base58";
+
+import { decrypt, encrypt } from "./encryption";
 
 describe("aes", () => {
   it("encrypts and decrypts correctly", async () => {

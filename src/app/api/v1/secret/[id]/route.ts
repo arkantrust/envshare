@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
 export const runtime = "edge";
 
-const responseValidation = z.union([
+const _responseValidation = z.union([
   z.object({
     data: z.object({
       remainingReads: z.number().int().optional(),
@@ -18,7 +18,10 @@ const responseValidation = z.union([
 
 const redis = Redis.fromEnv();
 
-export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse> {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+): Promise<NextResponse> {
   try {
     const { id } = await params;
     if (!id) {
@@ -46,7 +49,9 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
       remainingReads = await redis.hincrby(redisKey, "remainingReads", -1);
     }
 
-    return NextResponse.json({ data: { secret: data.secret, remainingReads: remainingReads ?? undefined } });
+    return NextResponse.json({
+      data: { secret: data.secret, remainingReads: remainingReads ?? undefined },
+    });
   } catch (e) {
     console.error(e);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

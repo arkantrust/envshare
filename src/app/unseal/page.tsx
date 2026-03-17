@@ -1,13 +1,16 @@
 "use client";
+import {
+  ClipboardDocumentCheckIcon,
+  ClipboardDocumentIcon,
+  Cog6ToothIcon,
+} from "@heroicons/react/24/outline";
+import Link from "next/link";
 import React, { Fragment, useState, useEffect } from "react";
-import { ClipboardDocumentCheckIcon, ClipboardDocumentIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
 
+import { ErrorMessage } from "@/components/error";
 import { Title } from "@/components/title";
-
 import { decodeCompositeKey } from "@/pkg/encoding";
 import { decrypt } from "@/pkg/encryption";
-import Link from "next/link";
-import { ErrorMessage } from "@/components/error";
 
 export default function Unseal() {
   const [compositeKey, setCompositeKey] = useState<string>("");
@@ -57,15 +60,16 @@ export default function Unseal() {
   };
 
   return (
-    <div className="container px-8 mx-auto mt-16 lg:mt-32 ">
+    <div className="container mx-auto mt-16 px-8 lg:mt-32 ">
       {error ? <ErrorMessage message={error} /> : null}
       {text ? (
-        <div className="max-w-4xl mx-auto">
+        <div className="mx-auto max-w-4xl">
           {remainingReads !== null ? (
-            <div className="text-sm text-center text-zinc-600">
+            <div className="text-center text-sm text-zinc-600">
               {remainingReads > 0 ? (
                 <p>
-                  This document can be read <span className="text-zinc-100">{remainingReads}</span> more times.
+                  This document can be read <span className="text-zinc-100">{remainingReads}</span>{" "}
+                  more times.
                 </p>
               ) : (
                 <p className="text-zinc-400">
@@ -74,9 +78,12 @@ export default function Unseal() {
               )}
             </div>
           ) : null}
-          <pre className="px-4 py-3 mt-8 font-mono text-left bg-transparent border rounded-sm border-zinc-600 focus:border-zinc-100/80 focus:ring-0 sm:text-sm text-zinc-100">
+          <pre className="font-mono mt-8 rounded-sm border border-zinc-600 bg-transparent px-4 py-3 text-left text-zinc-100 focus:border-zinc-100/80 focus:ring-0 sm:text-sm">
             <div className="flex items-start px-1 text-sm">
-              <div aria-hidden="true" className="pr-4 font-mono border-r select-none border-zinc-300/5 text-zinc-700">
+              <div
+                aria-hidden="true"
+                className="font-mono border-r border-zinc-300/5 pr-4 text-zinc-700 select-none"
+              >
                 {Array.from({
                   length: text.split("\n").length,
                 }).map((_, index) => (
@@ -94,26 +101,26 @@ export default function Unseal() {
             </div>
           </pre>
 
-          <div className="flex items-center justify-end gap-4 mt-4">
+          <div className="mt-4 flex items-center justify-end gap-4">
             <Link
               href="/share"
               type="button"
-              className="relative inline-flex items-center px-4 py-2 -ml-px space-x-2 text-sm font-medium duration-150 border rounded-sm text-zinc-300 border-zinc-300/40 hover:border-zinc-300 focus:outline-hidden hover:text-white"
+              className="relative -ml-px inline-flex items-center space-x-2 rounded-sm border border-zinc-300/40 px-4 py-2 text-sm font-medium text-zinc-300 duration-150 hover:border-zinc-300 hover:text-white focus:outline-hidden"
             >
               Share another
             </Link>
             <button
               type="button"
-              className="relative inline-flex items-center px-4 py-2 -ml-px space-x-2 text-sm font-medium duration-150 border rounded-sm text-zinc-700 border-zinc-300 bg-zinc-50 hover focus:border-zinc-500 focus:outline-hidden hover:text-zinc-50 hover:bg-zinc-900"
+              className="hover relative -ml-px inline-flex items-center space-x-2 rounded-sm border border-zinc-300 bg-zinc-50 px-4 py-2 text-sm font-medium text-zinc-700 duration-150 hover:bg-zinc-900 hover:text-zinc-50 focus:border-zinc-500 focus:outline-hidden"
               onClick={() => {
                 navigator.clipboard.writeText(text);
                 setCopied(true);
               }}
             >
               {copied ? (
-                <ClipboardDocumentCheckIcon className="w-5 h-5" aria-hidden="true" />
+                <ClipboardDocumentCheckIcon className="h-5 w-5" aria-hidden="true" />
               ) : (
-                <ClipboardDocumentIcon className="w-5 h-5" aria-hidden="true" />
+                <ClipboardDocumentIcon className="h-5 w-5" aria-hidden="true" />
               )}{" "}
               <span>{copied ? "Copied" : "Copy"}</span>
             </button>
@@ -121,7 +128,7 @@ export default function Unseal() {
         </div>
       ) : (
         <form
-          className="max-w-3xl mx-auto "
+          className="mx-auto max-w-3xl "
           onSubmit={(e) => {
             e.preventDefault();
             onSubmit();
@@ -129,7 +136,7 @@ export default function Unseal() {
         >
           <Title>Decrypt a document</Title>
 
-          <div className="px-3 py-2 mt-8 border rounded-sm border-zinc-600 focus-within:border-zinc-100/80 focus-within:ring-0 ">
+          <div className="mt-8 rounded-sm border border-zinc-600 px-3 py-2 focus-within:border-zinc-100/80 focus-within:ring-0 ">
             <label htmlFor="id" className="block text-xs font-medium text-zinc-100">
               ID
             </label>
@@ -137,7 +144,7 @@ export default function Unseal() {
               type="text"
               name="compositeKey"
               id="compositeKey"
-              className="w-full p-0 text-base bg-transparent border-0 appearance-none text-zinc-100 placeholder-zinc-500 focus:ring-0 sm:text-sm"
+              className="w-full appearance-none border-0 bg-transparent p-0 text-base text-zinc-100 placeholder-zinc-500 focus:ring-0 sm:text-sm"
               value={compositeKey}
               onChange={(e) => setCompositeKey(e.target.value)}
             />
@@ -146,10 +153,11 @@ export default function Unseal() {
           <button
             type="submit"
             disabled={loading}
-            className={`mt-8 w-full h-12 inline-flex justify-center items-center  transition-all  rounded px-4 py-1.5 md:py-2 text-base font-semibold leading-7 text-zinc-800   bg-zinc-200 ring-1  duration-150  hover:text-black hover:drop-shadow-cta   hover:bg-white ${loading ? "animate-pulse" : ""
-              }`}
+            className={`mt-8 inline-flex h-12 w-full items-center justify-center  rounded  bg-zinc-200 px-4 py-1.5 text-base leading-7 font-semibold text-zinc-800 ring-1   transition-all duration-150  hover:bg-white  hover:text-black hover:drop-shadow-cta   md:py-2 ${
+              loading ? "animate-pulse" : ""
+            }`}
           >
-            <span>{loading ? <Cog6ToothIcon className="w-5 h-5 animate-spin" /> : "Unseal"}</span>
+            <span>{loading ? <Cog6ToothIcon className="h-5 w-5 animate-spin" /> : "Unseal"}</span>
           </button>
         </form>
       )}

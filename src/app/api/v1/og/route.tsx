@@ -10,17 +10,19 @@ export async function GET(req: NextRequest) {
     const title = searchParams.get("title") ?? "Share Environment Variables Securely";
     const subtitle = searchParams.get("subtitle") ?? "EnvShare";
 
-    const inter = await fetch(new URL("/public/fonts/Inter-SemiBold.ttf", import.meta.url)).then((res) =>
-      res.arrayBuffer(),
+    const inter = await fetch(new URL("/public/fonts/Inter-SemiBold.ttf", import.meta.url)).then(
+      (res) => res.arrayBuffer(),
     );
 
     // TODO: Fix tailwind classes on this route
     return new ImageResponse(
-      <div tw='w-[1200px] h-[630px] flex flex-col items-center justify-center text-center'>
+      <div tw="w-[1200px] h-[630px] flex flex-col items-center justify-center text-center">
         {/* backgroundImage: bg-linear-to-tr from-zinc-900/50 to-zinc-700/30 */}
         <div
           tw="bg-black w-full h-full flex"
-          style={{ backgroundImage: "linear-gradient(to top right, rgba(24,24,27,.5), rgba(63,63,70,.3))" }}
+          style={{
+            backgroundImage: "linear-gradient(to top right, rgba(24,24,27,.5), rgba(63,63,70,.3))",
+          }}
         >
           <div tw="flex flex-col text-3xl tracking-tight text-gray-300 w-full items-center h-full justify-center text-center">
             {/* font-semibold bg-linear-to-t bg-clip-text from-zinc-100/50 to-white whitespace-pre */}
@@ -30,7 +32,8 @@ export async function GET(req: NextRequest) {
                 color: "transparent",
                 paddingLeft: "12rem",
                 paddingRight: "12rem",
-                backgroundImage: "linear-gradient(to top, rgba(244, 244,  245, .5), rgba(255,255,255,1))",
+                backgroundImage:
+                  "linear-gradient(to top, rgba(244, 244,  245, .5), rgba(255,255,255,1))",
                 backgroundClip: "text",
               }}
             >

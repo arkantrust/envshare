@@ -8,7 +8,12 @@ const TwitterHandle: React.FC<PropsWithChildren> = ({ children }) => {
 };
 
 const Author: React.FC<PropsWithChildren<{ href: string }>> = ({ children, href }) => (
-  <Link target="_blank" rel="noopener noreferrer" href={href} className="duration-150 text-zinc-200 hover:text-zinc-50">
+  <Link
+    target="_blank"
+    rel="noopener noreferrer"
+    href={href}
+    className="text-zinc-200 duration-150 hover:text-zinc-50"
+  >
     {children}
   </Link>
 );
@@ -18,7 +23,7 @@ const Title: React.FC<PropsWithChildren<{ href: string }>> = ({ children, href }
     target="_blank"
     rel="noopener noreferrer"
     href={href}
-    className="text-sm duration-150 text-zinc-500 hover:text-zinc-300"
+    className="text-sm text-zinc-500 duration-150 hover:text-zinc-300"
   >
     {children}
   </Link>
@@ -38,11 +43,11 @@ export const Testimonials = () => {
       content: (
         <div>
           <p>
-            My cursory audit of <TwitterHandle>@chronark_</TwitterHandle>'s envshare:
+            My cursory audit of <TwitterHandle>@chronark_</TwitterHandle>&apos;s envshare:
           </p>
           <p>
-            It is light, extremely functional, and does its symmetric block cipher correctly, unique initialization
-            vectors, decryption keys derived securely.
+            It is light, extremely functional, and does its symmetric block cipher correctly, unique
+            initialization vectors, decryption keys derived securely.
           </p>
           <br />
           <p>Easily modified to remove minimal analytics. Superior to Privnote.</p>
@@ -60,10 +65,11 @@ export const Testimonials = () => {
     {
       content: (
         <div>
-          <p>I'm particularly chuffed about this launch, for a couple of reasons:</p>
+          <p>I&apos;m particularly chuffed about this launch, for a couple of reasons:</p>
           <ul>
             <li>
-              ◆ Built on <TwitterHandle>@nextjs</TwitterHandle> + <TwitterHandle>@upstash</TwitterHandle>, hosted on{" "}
+              ◆ Built on <TwitterHandle>@nextjs</TwitterHandle> +{" "}
+              <TwitterHandle>@upstash</TwitterHandle>, hosted on{" "}
               <TwitterHandle>@vercel</TwitterHandle>
             </li>
             <li>◆ 100% free to use & open source</li>
@@ -83,8 +89,8 @@ export const Testimonials = () => {
       content: (
         <div>
           <p>
-            Congratulations on the launch <TwitterHandle>@chronark_</TwitterHandle>👏! This is such a valuable product
-            for developers. Icing on the cake is that it's open source! ✨
+            Congratulations on the launch <TwitterHandle>@chronark_</TwitterHandle>👏! This is such
+            a valuable product for developers. Icing on the cake is that it&apos;s open source! ✨
           </p>
         </div>
       ),
@@ -98,22 +104,31 @@ export const Testimonials = () => {
 
   return (
     <section className="container mx-auto">
-      <ul role="list" className="grid max-w-2xl grid-cols-1 gap-16 mx-auto sm:gap-8 lg:max-w-none lg:grid-cols-3">
+      <ul
+        role="list"
+        className="mx-auto grid max-w-2xl grid-cols-1 gap-16 sm:gap-8 lg:max-w-none lg:grid-cols-3"
+      >
         {posts.map((post, i) => (
           <div
             key={i}
-            className="flex flex-col justify-between duration-150 border rounded-sm border-zinc-500/30 hover:border-zinc-300/30 hover:bg-zinc-900/30 group"
+            className="group flex flex-col justify-between rounded-sm border border-zinc-500/30 duration-150 hover:border-zinc-300/30 hover:bg-zinc-900/30"
           >
-            <Link href={post.link} className="whitespace-pre-line text text-zinc-500 p-6">
+            <Link href={post.link} className="text p-6 whitespace-pre-line text-zinc-500">
               {post.content}
             </Link>
-            <div className="relative flex items-start justify-between p-6 duration-150 border-t bg-zinc-900/40 border-zinc-500/30 group-hover:border-zinc-300/30">
+            <div className="relative flex items-start justify-between border-t border-zinc-500/30 bg-zinc-900/40 p-6 duration-150 group-hover:border-zinc-300/30">
               <div>
-                <div className="text-base font-display text-zinc-200">{post.author.name}</div>
+                <div className="font-display text-base text-zinc-200">{post.author.name}</div>
                 <div className="mt-1 text-sm text-zinc-500">{post.author.title}</div>
               </div>
               <div className="overflow-hidden rounded-full bg-zinc-50">
-                <Image className="object-cover h-14 w-14" src={post.author.image} alt="" width={56} height={56} />
+                <Image
+                  className="h-14 w-14 object-cover"
+                  src={post.author.image}
+                  alt=""
+                  width={56}
+                  height={56}
+                />
               </div>
             </div>
           </div>
