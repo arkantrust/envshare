@@ -22,25 +22,25 @@ export default function Home() {
           <h1 className="bg-linear-to-t from-zinc-100/50 to-white bg-clip-text py-4 text-center text-5xl font-bold tracking-tight text-transparent sm:text-7xl">
             Share Environment Variables Securely
           </h1>
-          <p className="mt-6 leading-5 text-zinc-600 sm:text-center">
-            Your document is encrypted in your browser before being stored for a limited period of
-            time and read operations. Unencrypted data never leaves your browser.
+
+          <Link
+            href="/share"
+            aria-label="Share environment variables"
+            className="group mx-auto mt-6 flex w-full items-center justify-center gap-3 rounded-md bg-linear-to-r from-zinc-50 to-zinc-200 px-6 py-2.5 text-base leading-7 font-semibold text-zinc-900 shadow-lg ring-1 shadow-zinc-950/20 ring-zinc-200/80 transition-all duration-200 hover:-translate-y-0.5 hover:from-zinc-100 hover:to-zinc-300 hover:shadow-xl hover:shadow-zinc-950/30 focus-visible:ring-2 focus-visible:ring-zinc-300/80 focus-visible:outline-none sm:w-2/3 sm:max-w-lg sm:text-center md:w-1/2 md:py-3"
+          >
+            <span>Share</span>
+            <span
+              aria-hidden="true"
+              className="transition-transform duration-200 group-hover:translate-x-1"
+            >
+              &rarr;
+            </span>
+          </Link>
+
+          <p className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-balance text-zinc-400 sm:text-center sm:text-lg">
+            Your document is encrypted in your browser before being stored for a limited period.
+            Unencrypted data never leaves your device.
           </p>
-          <div className="mx-auto mt-8 flex flex-col justify-center gap-4 sm:max-w-lg sm:flex-row ">
-            <Link
-              href="/deploy"
-              className="inline-block space-x-2 rounded-sm px-4 py-1.5 text-base leading-7 font-semibold text-white ring-1 ring-zinc-600 duration-150  hover:bg-white hover:text-zinc-900 hover:ring-white hover:drop-shadow-cta sm:w-1/2 sm:text-center md:py-2"
-            >
-              Deploy
-            </Link>
-            <Link
-              href="/share"
-              className="inline-block space-x-2 rounded-sm bg-zinc-50 px-4  py-1.5 text-base leading-7 font-semibold text-zinc-800 ring-1 ring-transparent transition-all   duration-150 hover:bg-zinc-900/20 hover:text-zinc-100 hover:ring-zinc-600/80 hover:drop-shadow-cta  sm:w-1/2 sm:text-center md:py-2"
-            >
-              <span>Share</span>
-              <span aria-hidden="true">&rarr;</span>
-            </Link>
-          </div>
         </div>
       </div>
       <h2 className="py-4 text-center text-3xl font-bold text-zinc-300 ">
