@@ -17,13 +17,13 @@ export async function GET(req: NextRequest) {
     // TODO: Fix tailwind classes on this route
     return new ImageResponse(
       <div tw='w-[1200px] h-[630px] flex flex-col items-center justify-center text-center'>
-        {/* backgroundImage: bg-gradient-to-tr from-zinc-900/50 to-zinc-700/30 */}
+        {/* backgroundImage: bg-linear-to-tr from-zinc-900/50 to-zinc-700/30 */}
         <div
           tw="bg-black w-full h-full flex"
           style={{ backgroundImage: "linear-gradient(to top right, rgba(24,24,27,.5), rgba(63,63,70,.3))" }}
         >
           <div tw="flex flex-col text-3xl tracking-tight text-gray-300 w-full items-center h-full justify-center text-center">
-            {/* font-semibold bg-gradient-to-t bg-clip-text from-zinc-100/50 to-white whitespace-pre */}
+            {/* font-semibold bg-linear-to-t bg-clip-text from-zinc-100/50 to-white whitespace-pre */}
             <h1
               tw="text-white text-7xl"
               style={{

@@ -102,7 +102,7 @@ export const Testimonials = () => {
         {posts.map((post, i) => (
           <div
             key={i}
-            className="flex flex-col justify-between duration-150 border rounded border-zinc-500/30 hover:border-zinc-300/30 hover:bg-zinc-900/30 group"
+            className="flex flex-col justify-between duration-150 border rounded-sm border-zinc-500/30 hover:border-zinc-300/30 hover:bg-zinc-900/30 group"
           >
             <Link href={post.link} className="whitespace-pre-line text text-zinc-500 p-6">
               {post.content}

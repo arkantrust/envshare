@@ -74,7 +74,7 @@ export default function Unseal() {
               )}
             </div>
           ) : null}
-          <pre className="px-4 py-3 mt-8 font-mono text-left bg-transparent border rounded border-zinc-600 focus:border-zinc-100/80 focus:ring-0 sm:text-sm text-zinc-100">
+          <pre className="px-4 py-3 mt-8 font-mono text-left bg-transparent border rounded-sm border-zinc-600 focus:border-zinc-100/80 focus:ring-0 sm:text-sm text-zinc-100">
             <div className="flex items-start px-1 text-sm">
               <div aria-hidden="true" className="pr-4 font-mono border-r select-none border-zinc-300/5 text-zinc-700">
                 {Array.from({
@@ -98,13 +98,13 @@ export default function Unseal() {
             <Link
               href="/share"
               type="button"
-              className="relative inline-flex items-center px-4 py-2 -ml-px space-x-2 text-sm font-medium duration-150 border rounded text-zinc-300 border-zinc-300/40 hover:border-zinc-300 focus:outline-none hover:text-white"
+              className="relative inline-flex items-center px-4 py-2 -ml-px space-x-2 text-sm font-medium duration-150 border rounded-sm text-zinc-300 border-zinc-300/40 hover:border-zinc-300 focus:outline-hidden hover:text-white"
             >
               Share another
             </Link>
             <button
               type="button"
-              className="relative inline-flex items-center px-4 py-2 -ml-px space-x-2 text-sm font-medium duration-150 border rounded text-zinc-700 border-zinc-300 bg-zinc-50 hover focus:border-zinc-500 focus:outline-none hover:text-zinc-50 hover:bg-zinc-900"
+              className="relative inline-flex items-center px-4 py-2 -ml-px space-x-2 text-sm font-medium duration-150 border rounded-sm text-zinc-700 border-zinc-300 bg-zinc-50 hover focus:border-zinc-500 focus:outline-hidden hover:text-zinc-50 hover:bg-zinc-900"
               onClick={() => {
                 navigator.clipboard.writeText(text);
                 setCopied(true);
@@ -129,7 +129,7 @@ export default function Unseal() {
         >
           <Title>Decrypt a document</Title>
 
-          <div className="px-3 py-2 mt-8 border rounded border-zinc-600 focus-within:border-zinc-100/80 focus-within:ring-0 ">
+          <div className="px-3 py-2 mt-8 border rounded-sm border-zinc-600 focus-within:border-zinc-100/80 focus-within:ring-0 ">
             <label htmlFor="id" className="block text-xs font-medium text-zinc-100">
               ID
             </label>

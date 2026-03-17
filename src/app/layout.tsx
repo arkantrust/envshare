@@ -44,7 +44,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={montserrat.className}>
-      <body className="relative min-h-screen bg-black bg-gradient-to-tr from-zinc-900/50 to-zinc-700/30">
+      <body className="relative min-h-screen bg-black bg-linear-to-tr from-zinc-900/50 to-zinc-700/30">
         {
           // Not everyone will want to host envshare on Vercel, so it makes sense to make this opt-in.
           process.env.ENABLE_VERCEL_ANALYTICS ? <Analytics /> : null

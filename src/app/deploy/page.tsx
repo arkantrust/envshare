@@ -21,7 +21,7 @@ const steps: {
     cta: (
       <Link
         href="https://console.upstash.com/redis"
-        className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm text-center transition-all duration-150 rounded text-zinc-800 hover:text-zinc-100 bg-zinc-200 hover:bg-transparent ring-1 ring-zinc-100"
+        className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm text-center transition-all duration-150 rounded-sm text-zinc-800 hover:text-zinc-100 bg-zinc-200 hover:bg-transparent ring-1 ring-zinc-100"
       >
         <span>Create Database</span>
         <ArrowTopRightOnSquareIcon className="w-4 h-4" />
@@ -43,7 +43,7 @@ const steps: {
     cta: (
       <Link
         href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fchronark%2Fenvshare&env=UPSTASH_REDIS_REST_URL,UPSTASH_REDIS_REST_TOKEN&demo-title=Share%20Environment%20Variables%20Securely&demo-url=https%3A%2F%2Fcryptic.vercel.app"
-        className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm text-center transition-all duration-150 rounded text-zinc-800 hover:text-zinc-100 bg-zinc-200 hover:bg-transparent ring-1 ring-zinc-100"
+        className="flex items-center justify-center w-full gap-2 px-4 py-2 text-sm text-center transition-all duration-150 rounded-sm text-zinc-800 hover:text-zinc-100 bg-zinc-200 hover:bg-transparent ring-1 ring-zinc-100"
       >
         <span>Deploy</span>
         <ArrowTopRightOnSquareIcon className="w-4 h-4" />
@@ -63,7 +63,7 @@ export default function Deploy() {
         {steps.map((step, stepIdx) => (
           <li key={step.name} className="relative flex flex-col items-center gap-4 pb-16 group md:gap-8 md:pb-24">
             <span
-              className="absolute top-4  h-full w-0.5 bg-gradient-to-b from-blue-500/60  via-blue-500/10 to-transparent"
+              className="absolute top-4  h-full w-0.5 bg-linear-to-b from-blue-500/60  via-blue-500/10 to-transparent"
               aria-hidden="true"
             />
             <span className="flex items-center h-9" aria-hidden="true">
