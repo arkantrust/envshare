@@ -1,12 +1,12 @@
 "use client";
-import { toBase58 } from "util/base58";
+import { toBase58 } from "@/util/base58";
 import { useState, Fragment } from "react";
 import { Cog6ToothIcon, ClipboardDocumentIcon, ClipboardDocumentCheckIcon } from "@heroicons/react/24/outline";
-import { Title } from "@components/title";
-import { encrypt } from "pkg/encryption";
-import { ErrorMessage } from "@components/error";
-import { encodeCompositeKey } from "pkg/encoding";
-import { LATEST_KEY_VERSION } from "pkg/constants";
+import { Title } from "@/components/title";
+import { encrypt } from "@/pkg/encryption";
+import { ErrorMessage } from "@/components/error";
+import { encodeCompositeKey } from "@/pkg/encoding";
+import { LATEST_KEY_VERSION } from "@/pkg/constants";
 
 export default function Home() {
   const [text, setText] = useState("");
@@ -191,11 +191,10 @@ export default function Home() {
           <button
             type="submit"
             disabled={loading || text.length <= 0}
-            className={`mt-6 w-full h-12 inline-flex justify-center items-center  transition-all  rounded px-4 py-1.5 md:py-2 text-base font-semibold leading-7    bg-zinc-200 ring-1 ring-transparent duration-150   ${
-              text.length <= 0
-                ? "text-zinc-400 cursor-not-allowed"
-                : "text-zinc-900 hover:text-zinc-100 hover:ring-zinc-600/80  hover:bg-zinc-900/20"
-            } ${loading ? "animate-pulse" : ""}`}
+            className={`mt-6 w-full h-12 inline-flex justify-center items-center  transition-all  rounded px-4 py-1.5 md:py-2 text-base font-semibold leading-7    bg-zinc-200 ring-1 ring-transparent duration-150   ${text.length <= 0
+              ? "text-zinc-400 cursor-not-allowed"
+              : "text-zinc-900 hover:text-zinc-100 hover:ring-zinc-600/80  hover:bg-zinc-900/20"
+              } ${loading ? "animate-pulse" : ""}`}
           >
             <span>{loading ? <Cog6ToothIcon className="w-5 h-5 animate-spin" /> : "Share"}</span>
           </button>

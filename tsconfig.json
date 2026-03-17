@@ -19,10 +19,12 @@
     "jsx": "react-jsx",
     "incremental": true,
     "downlevelIteration": true,
-    "baseUrl": ".",
     "paths": {
-      "@components/*": [
-        "./app/components/*"
+      "*": [
+        "./*"
+      ],
+      "@/*": [
+        "./src/*"
       ]
     },
     "plugins": [

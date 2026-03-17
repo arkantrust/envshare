@@ -1,14 +1,14 @@
 import "./globals.css";
-import localFont from "next/font/local";
+import { Montserrat } from 'next/font/google'
 import Link from "next/link";
 import { Header } from "./header";
-import { Analytics } from "@components/analytics";
+import { Analytics } from "@/components/analytics";
 import type { Metadata } from "next";
 
-const inter = localFont({
-  src: "../public/fonts/Inter-SemiBold.ttf",
-  variable: "--font-inter",
-});
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  fallback: ['ui-sans-serif', 'system-ui', 'sans-serif'],
+})
 
 const baseUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000";
 
@@ -43,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={montserrat.className}>
       <body className="relative min-h-screen bg-black bg-gradient-to-tr from-zinc-900/50 to-zinc-700/30">
         {
           // Not everyone will want to host envshare on Vercel, so it makes sense to make this opt-in.

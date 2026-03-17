@@ -1,7 +1,7 @@
 "use client";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
-import { Title } from "@components/title";
+import { Title } from "@/components/title";
 import React from "react";
 const steps: {
   name: string;

@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
     const title = searchParams.get("title") ?? "Share Environment Variables Securely";
     const subtitle = searchParams.get("subtitle") ?? "EnvShare";
 
-    const inter = await fetch(new URL("../../../../public/fonts/Inter-SemiBold.ttf", import.meta.url)).then((res) =>
+    const inter = await fetch(new URL("/public/fonts/Inter-SemiBold.ttf", import.meta.url)).then((res) =>
       res.arrayBuffer(),
     );
 

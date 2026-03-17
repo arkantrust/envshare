@@ -2,12 +2,12 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { ClipboardDocumentCheckIcon, ClipboardDocumentIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
 
-import { Title } from "@components/title";
+import { Title } from "@/components/title";
 
-import { decodeCompositeKey } from "pkg/encoding";
-import { decrypt } from "pkg/encryption";
+import { decodeCompositeKey } from "@/pkg/encoding";
+import { decrypt } from "@/pkg/encryption";
 import Link from "next/link";
-import { ErrorMessage } from "@components/error";
+import { ErrorMessage } from "@/components/error";
 
 export default function Unseal() {
   const [compositeKey, setCompositeKey] = useState<string>("");
@@ -146,9 +146,8 @@ export default function Unseal() {
           <button
             type="submit"
             disabled={loading}
-            className={`mt-8 w-full h-12 inline-flex justify-center items-center  transition-all  rounded px-4 py-1.5 md:py-2 text-base font-semibold leading-7 text-zinc-800   bg-zinc-200 ring-1  duration-150  hover:text-black hover:drop-shadow-cta   hover:bg-white ${
-              loading ? "animate-pulse" : ""
-            }`}
+            className={`mt-8 w-full h-12 inline-flex justify-center items-center  transition-all  rounded px-4 py-1.5 md:py-2 text-base font-semibold leading-7 text-zinc-800   bg-zinc-200 ring-1  duration-150  hover:text-black hover:drop-shadow-cta   hover:bg-white ${loading ? "animate-pulse" : ""
+              }`}
           >
             <span>{loading ? <Cog6ToothIcon className="w-5 h-5 animate-spin" /> : "Unseal"}</span>
           </button>
