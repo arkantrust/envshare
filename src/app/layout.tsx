@@ -20,7 +20,6 @@ const baseUrl = process.env.VERCEL_URL
 const title = "EnvShare: share environment variables securely";
 const description =
   "Encrypt .env files in your browser and share them with a one-time link that expires after a set time or number of reads. The key never reaches the server.";
-const ogImage = `${baseUrl}/api/v1/og?title=Share+Environment+Variables+Securely&subtitle=EnvShare`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
@@ -33,9 +32,8 @@ export const metadata: Metadata = {
     siteName: "EnvShare",
     title,
     description,
-    images: [{ url: ogImage, width: 1200, height: 630 }],
   },
-  twitter: { card: "summary_large_image", title, description, images: [ogImage] },
+  twitter: { card: "summary_large_image", title, description },
 };
 
 export const viewport: Viewport = { themeColor: "#0a0a0a", colorScheme: "dark" };

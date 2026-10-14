@@ -1,10 +1,9 @@
 import { ArrowDownIcon, LockKeyholeIcon } from "lucide-react";
-import { Suspense } from "react";
 
 import { EncryptDemo } from "@/components/encrypt-demo";
 import { HowItWorks } from "@/components/how-it-works";
 import { ShareForm } from "@/components/share-form";
-import { Stats, StatsSkeleton } from "@/components/stats";
+import { Stats } from "@/components/stats";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -57,9 +56,7 @@ export default function Home() {
       <HowItWorks />
 
       <section aria-label="Usage statistics" className="mx-auto w-full max-w-4xl px-6">
-        <Suspense fallback={<StatsSkeleton />}>
-          <Stats />
-        </Suspense>
+        <Stats />
       </section>
     </div>
   );
