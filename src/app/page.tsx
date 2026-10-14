@@ -1,53 +1,66 @@
-import Link from "next/link";
+import { ArrowDownIcon, LockKeyholeIcon } from "lucide-react";
+import { Suspense } from "react";
 
-import { Stats } from "@/components/stats";
-import { Testimonials } from "@/components/testimony";
+import { EncryptDemo } from "@/components/encrypt-demo";
+import { HowItWorks } from "@/components/how-it-works";
+import { ShareForm } from "@/components/share-form";
+import { Stats, StatsSkeleton } from "@/components/stats";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-8 pb-8 md:gap-16 md:pb-16 xl:pb-24">
-      <div className="mx-auto mt-8 flex max-w-3xl flex-col items-center justify-center px-8 sm:mt-0 sm:min-h-screen sm:px-0">
-        <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-          <Link
-            href="https://github.com/chronark/envshare"
-            className="relative overflow-hidden rounded-full px-4 py-1.5 text-sm leading-6 text-zinc-400 ring-1 ring-zinc-100/10 duration-150 hover:ring-zinc-100/30"
+    <div className="flex flex-col gap-16 pb-16">
+      <section className="relative overflow-hidden px-6 pt-20 pb-8 sm:pt-28">
+        <div aria-hidden="true" className="bg-grid pointer-events-none absolute inset-0" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 left-1/2 h-112 w-176 max-w-full animate-glow rounded-full bg-primary/30 blur-[120px]"
+        />
+        <div className="relative mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
+          <Badge
+            variant="outline"
+            className="animate-in gap-1.5 duration-700 fade-in slide-in-from-bottom-2"
           >
-            EnvShare is Open Source on{" "}
-            <span className="font-semibold text-zinc-200">
-              GitHub <span aria-hidden="true">&rarr;</span>
+            <LockKeyholeIcon className="size-3" />
+            End-to-end encrypted in your browser
+          </Badge>
+          <h1 className="animate-in text-5xl font-bold tracking-tight delay-150 duration-700 fill-mode-both fade-in slide-in-from-bottom-4 sm:text-7xl">
+            Share environment variables{" "}
+            <span className="bg-linear-to-r from-primary to-amber-400 bg-clip-text text-transparent">
+              securely
             </span>
-          </Link>
-        </div>
-        <div>
-          <h1 className="bg-linear-to-t from-zinc-100/50 to-white bg-clip-text py-4 text-center text-5xl font-bold tracking-tight text-transparent sm:text-7xl">
-            Share Environment Variables Securely
           </h1>
-
-          <Link
-            href="/share"
-            aria-label="Share environment variables"
-            className="group mx-auto mt-6 flex w-full items-center justify-center gap-3 rounded-md bg-linear-to-r from-zinc-50 to-zinc-200 px-6 py-2.5 text-base leading-7 font-semibold text-zinc-900 shadow-lg ring-1 shadow-zinc-950/20 ring-zinc-200/80 transition-all duration-200 hover:-translate-y-0.5 hover:from-zinc-100 hover:to-zinc-300 hover:shadow-xl hover:shadow-zinc-950/30 focus-visible:ring-2 focus-visible:ring-zinc-300/80 focus-visible:outline-none sm:w-2/3 sm:max-w-lg sm:text-center md:w-1/2 md:py-3"
-          >
-            <span>Share</span>
-            <span
-              aria-hidden="true"
-              className="transition-transform duration-200 group-hover:translate-x-1"
-            >
-              &rarr;
-            </span>
-          </Link>
-
-          <p className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-balance text-zinc-400 sm:text-center sm:text-lg">
-            Your document is encrypted in your browser before being stored for a limited period.
-            Unencrypted data never leaves your device.
+          <p className="max-w-xl animate-in text-lg text-balance text-muted-foreground delay-300 duration-700 fill-mode-both fade-in slide-in-from-bottom-4">
+            Your document is encrypted before it leaves your device and deleted after a limited time
+            or number of reads. We never see the key.
           </p>
+          <Button
+            size="lg"
+            className="h-12 animate-in px-6 text-base delay-500 duration-700 fill-mode-both zoom-in-95 fade-in"
+            nativeButton={false}
+            render={<a href="#share" />}
+          >
+            Share your .env
+            <ArrowDownIcon className="animate-bounce" />
+          </Button>
+          <div className="mt-6 w-full animate-in delay-700 duration-700 fill-mode-both fade-in slide-in-from-bottom-4">
+            <EncryptDemo />
+          </div>
         </div>
-      </div>
-      <h2 className="py-4 text-center text-3xl font-bold text-zinc-300 ">
-        Used and trusted by a growing community
-      </h2>
-      <Stats />
-      <Testimonials />
+      </section>
+
+      <section className="mx-auto w-full max-w-3xl px-6">
+        <ShareForm />
+      </section>
+
+      <HowItWorks />
+
+      <section aria-label="Usage statistics" className="mx-auto w-full max-w-4xl px-6">
+        <Suspense fallback={<StatsSkeleton />}>
+          <Stats />
+        </Suspense>
+      </section>
     </div>
   );
 }

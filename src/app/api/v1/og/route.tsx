@@ -19,9 +19,11 @@ export async function GET(req: NextRequest) {
       <div tw="w-[1200px] h-[630px] flex flex-col items-center justify-center text-center">
         {/* backgroundImage: bg-linear-to-tr from-zinc-900/50 to-zinc-700/30 */}
         <div
-          tw="bg-black w-full h-full flex"
+          tw="w-full h-full flex"
           style={{
-            backgroundImage: "linear-gradient(to top right, rgba(24,24,27,.5), rgba(63,63,70,.3))",
+            backgroundColor: "#0a0a0a",
+            backgroundImage:
+              "radial-gradient(ellipse at 50% 0%, rgba(246,130,31,.35), rgba(10,10,10,0) 60%)",
           }}
         >
           <div tw="flex flex-col text-3xl tracking-tight text-gray-300 w-full items-center h-full justify-center text-center">
@@ -39,7 +41,9 @@ export async function GET(req: NextRequest) {
             >
               {title}
             </h1>
-            <p tw="mt-4 font-bold">{subtitle}</p>
+            <p tw="mt-4 font-bold" style={{ color: "#f6821f" }}>
+              {subtitle}
+            </p>
           </div>
         </div>
       </div>,

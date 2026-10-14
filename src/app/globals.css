@@ -6,34 +6,23 @@
 */
 @custom-variant dark (&:is(.dark *));
 
-@plugin "@tailwindcss/forms";
-
 @theme {
-  --font-*: initial;
-  --font-sans:
-    var(--font-montserrat), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --animate-glow: glow 6s ease-in-out infinite;
 
-  --drop-shadow-cta: 0 10px 15px rgba(219, 227, 248, 0.2);
-  --drop-shadow-blue: 0 10px 15px rgba(59, 130, 246, 0.2);
+  @keyframes glow {
+    0%,
+    100% {
+      opacity: 0.45;
+      transform: translateX(-50%) scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: translateX(-50%) scale(1.12);
+    }
+  }
 }
 
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
   * {
     @apply border-border outline-ring/50;
   }
@@ -46,13 +35,17 @@
 }
 
 @layer utilities {
-  input[type="number"]::-webkit-inner-spin-button,
-  input[type="number"]::-webkit-outer-spin-button {
-    @apply appearance-none;
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, oklch(1 0 0 / 6%) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(1 0 0 / 6%) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 30%, transparent 75%);
   }
 
-  input[type="file"] {
-    @apply appearance-none;
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    appearance: none;
   }
 }
 /*
@@ -141,14 +134,14 @@
   ---break---
 */
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: oklch(0.12 0 0);
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
+  --card: oklch(0.17 0 0);
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
+  --popover: oklch(0.17 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.47 0.157 37.304);
-  --primary-foreground: oklch(0.98 0.016 73.684);
+  --primary: oklch(0.7 0.19 48);
+  --primary-foreground: oklch(0.15 0.02 48);
   --secondary: oklch(0.274 0.006 286.033);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -158,7 +151,7 @@
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --ring: oklch(0.7 0.19 48);
   --chart-1: oklch(0.837 0.128 66.29);
   --chart-2: oklch(0.705 0.213 47.604);
   --chart-3: oklch(0.646 0.222 41.116);
@@ -166,10 +159,21 @@
   --chart-5: oklch(0.47 0.157 37.304);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.705 0.213 47.604);
+  --sidebar-primary: oklch(0.7 0.19 48);
   --sidebar-primary-foreground: oklch(0.98 0.016 73.684);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

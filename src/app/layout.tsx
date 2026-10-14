@@ -1,102 +1,98 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 
-import { Montserrat, Inter } from "next/font/google";
+import { Heart } from "lucide-react";
+import { Inter } from "next/font/google";
 import Link from "next/link";
 
 import { Analytics } from "@/components/analytics";
+import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 
 import { Header } from "./header";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  fallback: ["ui-sans-serif", "system-ui", "sans-serif"],
-});
-
 const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : "http://localhost:3000";
 
+const title = "EnvShare: share environment variables securely";
+const description =
+  "Encrypt .env files in your browser and share them with a one-time link that expires after a set time or number of reads. The key never reaches the server.";
+const ogImage = `${baseUrl}/api/v1/og?title=Share+Environment+Variables+Securely&subtitle=EnvShare`;
+
 export const metadata: Metadata = {
-  title: "EnvShare",
-  description: "Share Environment Variables Securely",
-  keywords: ["envshare", "secure", "secrets", "share", "environment", "variables"],
+  metadataBase: new URL(baseUrl),
+  title: { default: title, template: "%s | EnvShare" },
+  description,
+  keywords: ["envshare", "secure", "secrets", "share", "environment", "variables", ".env"],
   openGraph: {
     type: "website",
     url: baseUrl,
-    title: "Share Environment Variables Securely",
-    description: "EnvShare",
-    images: [
-      {
-        url: `${baseUrl}/api/v1/og?title=Share+Environment+Variables+Securely&subtitle=EnvShare`,
-        width: 1200,
-        height: 630,
-      },
-    ],
+    siteName: "EnvShare",
+    title,
+    description,
+    images: [{ url: ogImage, width: 1200, height: 630 }],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Share Environment Variables Securely",
-    description: "EnvShare",
-    images: [`${baseUrl}/api/v1/og?title=Share+Environment+Variables+Securely&subtitle=EnvShare`],
-  },
+  twitter: { card: "summary_large_image", title, description, images: [ogImage] },
 };
+
+export const viewport: Viewport = { themeColor: "#0a0a0a", colorScheme: "dark" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={cn(montserrat.className, "font-sans", inter.variable)}>
-      <body className="relative min-h-screen bg-black bg-linear-to-tr from-zinc-900/50 to-zinc-700/30">
+    <html lang="en" className={cn("dark font-sans", inter.variable)}>
+      <body className="relative flex min-h-screen flex-col bg-background text-foreground antialiased">
         {
           // Not everyone will want to host envshare on Vercel, so it makes sense to make this opt-in.
           process.env.ENABLE_VERCEL_ANALYTICS ? <Analytics /> : null
         }
 
+        <a
+          href="#main"
+          className="sr-only z-50 rounded-md bg-primary px-3 py-2 text-primary-foreground focus:not-sr-only focus:fixed focus:top-2 focus:left-2"
+        >
+          Skip to content
+        </a>
+
         <Header />
 
-        <main className=" min-h-[80vh] ">{children}</main>
+        <main id="main" className="flex-1">
+          {children}
+        </main>
 
-        <footer className="inset-2x-0 bottom-0 border-t border-zinc-500/10">
-          <div className="mx-auto flex max-w-7xl flex-col gap-1 px-6 py-12 text-center text-xs text-zinc-700 lg:px-8">
+        <footer className="border-t">
+          <div className="mx-auto flex max-w-5xl flex-col gap-1 px-6 py-8 text-center text-sm text-muted-foreground">
             <p>
-              Built by{" "}
+              Built with{" "}
+              <Heart
+                className="mx-0.5 inline size-3.5 -translate-y-px fill-primary text-primary"
+                aria-label="love"
+              />{" "}
+              by{" "}
               <Link
-                href="https://twitter.com/chronark_"
-                className="font-semibold duration-150 hover:text-zinc-200"
-              >
-                @chronark_
-              </Link>
-              and{" "}
-              <Link
-                href="https://github.com/chronark/envshare/graphs/contributors"
-                className="underline duration-150 hover:text-zinc-200"
-              >
-                many others{" "}
-              </Link>
-            </p>
-            <p>
-              EnvShare is deployed on{" "}
-              <Link
+                href="https://ddulce.app"
                 target="_blank"
-                href="https://vercel.com"
-                className="underline duration-150 hover:text-zinc-200"
+                rel="noopener noreferrer"
+                className="font-medium text-foreground underline-offset-4 hover:text-primary hover:underline"
               >
-                Vercel
-              </Link>{" "}
-              and uses{" "}
+                David Dulce
+              </Link>
+              , inspired by{" "}
               <Link
+                href="https://envshare.dev"
                 target="_blank"
-                href="https://upstash.com"
-                className="underline duration-150 hover:text-zinc-200"
+                rel="noopener noreferrer"
+                className="font-medium text-foreground underline-offset-4 hover:text-primary hover:underline"
               >
-                Upstash
-              </Link>{" "}
-              for storing encrypted data.
+                envshare.dev
+              </Link>
+              .
             </p>
           </div>
         </footer>
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );
