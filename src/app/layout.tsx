@@ -1,12 +1,15 @@
 import "./globals.css";
 import type { Metadata } from "next";
 
-import { Montserrat } from "next/font/google";
+import { Montserrat, Inter } from "next/font/google";
 import Link from "next/link";
 
 import { Analytics } from "@/components/analytics";
+import { cn } from "@/lib/utils";
 
 import { Header } from "./header";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -44,7 +47,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={montserrat.className}>
+    <html lang="en" className={cn(montserrat.className, "font-sans", inter.variable)}>
       <body className="relative min-h-screen bg-black bg-linear-to-tr from-zinc-900/50 to-zinc-700/30">
         {
           // Not everyone will want to host envshare on Vercel, so it makes sense to make this opt-in.
