@@ -75,7 +75,10 @@ export default function Unseal() {
         return;
       }
       if (!res.ok) {
-        throw new Error(await res.text());
+        throw new Error(
+          ((await res.json().catch(() => null)) as { error?: string } | null)?.error ??
+            res.statusText,
+        );
       }
       const json = (await res.json()) as {
         iv: string;
