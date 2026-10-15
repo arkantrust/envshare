@@ -26,7 +26,12 @@ import {
 } from "@/components/ui/select";
 import { useCopy } from "@/hooks/use-copy";
 import { describeExpiry } from "@/lib/expiry";
-import { LATEST_KEY_VERSION } from "@/pkg/constants";
+import {
+  DEFAULT_TTL_SECONDS,
+  LATEST_KEY_VERSION,
+  MAX_READS,
+  MAX_TTL_SECONDS,
+} from "@/pkg/constants";
 import { encodeCompositeKey } from "@/pkg/encoding";
 import { encrypt } from "@/pkg/encryption";
 import { toBase58 } from "@/util/base58";
@@ -50,12 +55,20 @@ const presets = [
   { label: "7 days", reads: 0, ttl: 7, unit: DAY },
 ];
 
+async function errorMessage(res: Response) {
+  try {
+    return ((await res.json()) as { error?: string }).error ?? res.statusText;
+  } catch {
+    return res.statusText;
+  }
+}
+
 type Result = { link: string; summary: string };
 
 export function ShareForm() {
   const [text, setText] = useState("");
   const [reads, setReads] = useState(999);
-  const [ttl, setTtl] = useState(7);
+  const [ttl, setTtl] = useState(DEFAULT_TTL_SECONDS / DAY);
   const [ttlMultiplier, setTtlMultiplier] = useState(DAY);
   const [loading, setLoading] = useState(false);
   const [dragging, setDragging] = useState(false);
@@ -69,10 +82,14 @@ export function ShareForm() {
   }, []);
 
   const validInt = (n: number) => Number.isInteger(n) && n >= 0;
-  const readsError = validInt(reads) ? null : "Enter a whole number, 0 or more.";
-  const ttlError = validInt(ttl) ? null : "Enter a whole number, 0 or more.";
+  const readsError =
+    validInt(reads) && reads <= MAX_READS ? null : `Enter a whole number from 0 to ${MAX_READS}.`;
+  const ttlError =
+    Number.isInteger(ttl) && ttl >= 1 && ttl * ttlMultiplier <= MAX_TTL_SECONDS
+      ? null
+      : "Enter a whole number between 1 second and 30 days.";
   const invalid = Boolean(readsError || ttlError);
-  const ttlSeconds = validInt(ttl) ? ttl * ttlMultiplier : 0;
+  const ttlSeconds = ttlError ? 0 : ttl * ttlMultiplier;
   const summary = invalid ? null : describeExpiry(reads, ttlSeconds);
 
   const readFile = (file: File) => {
@@ -93,6 +110,7 @@ export function ShareForm() {
 
       const res = await fetch("/api/v1/store", {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ttl: ttlSeconds,
           reads,
@@ -101,7 +119,7 @@ export function ShareForm() {
         }),
       });
       if (!res.ok) {
-        throw new Error(await res.text());
+        throw new Error(await errorMessage(res));
       }
       const { id } = (await res.json()) as { id: string };
 
@@ -279,7 +297,7 @@ export function ShareForm() {
                   type="number"
                   id="ttl"
                   name="ttl"
-                  min={0}
+                  min={1}
                   step={1}
                   aria-invalid={Boolean(ttlError)}
                   aria-describedby="ttl-error"
@@ -356,7 +374,7 @@ export function ShareForm() {
             </li>
             <li>
               <span className="font-semibold text-foreground/80">Expires after:</span> time to live
-              before the data is deleted automatically. 0 means no expiry.
+              before the data is deleted automatically (max 30 days).
             </li>
           </ul>
         </form>

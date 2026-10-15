@@ -16,5 +16,5 @@
     "functions": ["clsx", "cn"],
     "preserveWhitespace": true
   },
-  "ignorePatterns": []
+  "ignorePatterns": [".agents/**", ".next/**", "coverage/**"]
 }
